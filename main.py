@@ -773,7 +773,7 @@ async def render_html_to_image(content, output_path="output.png"):
     return output_path
 
 
-@register("status-pro", "StatusPro", "一个显示系统状态的插件", "1.0.0")
+@register("info", "sysinfo", "一个显示系统状态的插件", "1.5.0")
 class MyPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
