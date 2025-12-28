@@ -1,4 +1,11 @@
 {
+  "botName": {
+    "description": "机器人名称",
+    "type": "string",
+    "hint": "自定义机器人名称，默认Astrbot",
+    "default": "Astrbot"
+  },
+{
   "is_use_default": {
     "description": "是否使用默认背景图片",
     "type": "bool",

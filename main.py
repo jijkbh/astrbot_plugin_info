@@ -15,6 +15,7 @@ from astrbot.core import AstrBotConfig
 
 class StatusPrPr:
     def __init__(self,
+                    botName = "Astrbot", # 机器人名称
                     botNameColorful = False, # 是否使用彩色渐变
                     botNameColor = "rgba(85,70,163,0.8)", # 机器人名称颜色
                     botProfileblurs = 0.8, # 机器人头像模糊度
@@ -33,7 +34,6 @@ class StatusPrPr:
         self.config = {
             "command": "prprstatus",
             "authority": 1,
-            "botName": "AstrBot",
             "BackgroundURL": [
                 os.path.join(os.path.dirname(__file__), 'htmlmaterial/白圣女.txt'),
                 os.path.join(os.path.dirname(__file__), 'htmlmaterial/ba.txt')
@@ -505,7 +505,7 @@ class StatusPrPr:
     <div id="background-page">
         <div class="__title">
             <img src="{avatar}" class="__title-image" alt="Bot Profile" />
-            <span class="__title-text" id="config_name">{self.config["botName"]}</span>
+            <span class="__title-text" id="config_name">{botName}</span>
             <!-- Insert HTML for profile image would go here -->
         </div>
         <ul class="__dashboard" id="config_dashboard">
@@ -779,6 +779,7 @@ class MyPlugin(Star):
         super().__init__(context)
 
         is_use_default = config.get("is_use_default", True)
+        botName = config.get("botName", "Astrbot") # 自定义机器人名称
         background_images = config.get("background_images", [])
         botNameColorful = config.get("botNameColorful", False)  # 是否使用彩色渐变
         botNameColor = config.get("botNameColor", "rgba(85,70,163,0.8)")  # 机器人名称颜色
@@ -808,7 +809,7 @@ class MyPlugin(Star):
             for image in background_images:
                 background_urls.append(image)
         # 更新配置
-        self.status_generator = StatusPrPr(botNameColorful, botNameColor, botProfileblurs, logoblurs,
+        self.status_generator = StatusPrPr(botName, botNameColorful, botNameColor, botProfileblurs, logoblurs,
                                           Backgroundblurs, Backgroundcolor, dashboardTextColor1,
                                           dashboardTextColor2, dashboardTextColor3, dashboardTextColor4,
                                           systeminformationTextColor, DashedboxThickn, Dashedboxcolor)
@@ -831,9 +832,8 @@ class MyPlugin(Star):
             # 获取消息平台名称
             platform_name = event.platform_meta.name
 
-            # 获得发送者的头像
-
-            user_id = event.get_sender_id()
+            # 获得机器人的头像
+            user_id = event.get_self_id()
 
             avatar = f"https://q4.qlogo.cn/headimg_dl?dst_uin={user_id}&spec=640"
 
